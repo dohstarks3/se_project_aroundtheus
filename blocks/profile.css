@@ -9,7 +9,7 @@
   grid-template-areas:
     "title button"
     "description description";
-  grid-template-columns: minmax(auto, 373px) auto;
+  grid-template-columns: minmax(auto, 375px) auto;
   column-gap: 18px;
   position: relative;
 }
@@ -19,7 +19,7 @@
   height: 24px;
   width: 24px;
   align-self: center;
-  border: 2px solid white;
+  border: 1px solid white;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
@@ -34,9 +34,10 @@
   width: 150px;
   grid-area: button;
   margin-left: auto;
-  border: 1px solid white;
+  border: 2px solid white;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -51,14 +52,21 @@
   margin: 0;
   white-space: nowrap;
   grid-area: title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__description {
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 21.78px;
   grid-area: description;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__image {
@@ -70,11 +78,11 @@
   margin-right: 24px;
 }
 
-@media screen and (max-width: 722px) {
+@media screen and (max-width: 700px) {
   .profile {
     flex-direction: column;
     text-align: center;
-    padding: 43px 0 21px;
+    padding: 43px 0 0px;
   }
 
   .profile__info {
@@ -84,8 +92,8 @@
     justify-content: center;
     gap: 14px;
     max-width: 282px;
-    margin: 29px 0 33px 0;
-    padding-right: 10px;
+    height: 50px;
+    margin: 52px 19px 36px;
   }
 
   .profile__edit-button {
@@ -94,24 +102,40 @@
     top: 10px;
     right: 0px;
     line-height: 4px;
-    padding-left: 10px;
+    padding: 0 6px 0 10px;
   }
 
   .profile__add-button {
     flex-direction: column;
     justify-content: center;
     width: 282px;
-    height: 50px;
     margin: 0 auto;
+    padding-top: 36px;
+  }
+
+  .profile__description {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    width: 282px;
+    height: 14px;
+    font-weight: 400;
+    padding: 0;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 100%;
   }
 
   .profile__title {
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-weight: 500;
     font-size: 22px;
-    line-height: 48px;
+    line-height: 26.63px;
     margin: 0;
     white-space: nowrap;
     grid-area: title;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
