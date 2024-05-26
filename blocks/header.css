@@ -16,6 +16,7 @@
     max-width: 320px;
     border-bottom-width: 320px;
     padding-bottom: 0;
+    margin-left: 0;
   }
 
   .header__logo {
