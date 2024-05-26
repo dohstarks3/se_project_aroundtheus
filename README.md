@@ -1,21 +1,19 @@
-# Project 3: Around The U.S.
+# Project 3: Around the U.S.
 
-### Overview  
+## Intro
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+The project "Around the US" is the 3rd project in the tripleten course. It is meant to test the users ability to use create a reponive design with utilizing grid and flex layouts. The user is meant to create and edit the project using HTML and CSS. It is meant to test everything the user has learned from sprints 0-3 and apply it to this site.
+
+## Project Fetures
+
+- Gridbox Layout
+- VSCode
+- Flexbox Layout
+- Media Query
+- Responsive Design
+
+## Project Pictures
+
+![Project 3 Desktop View 1](./images/demo/Halfview.png)
+
+![Project 3 Desktop View 2](./images/demo/fullview.png)
