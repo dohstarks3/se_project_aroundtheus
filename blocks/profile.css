@@ -92,8 +92,11 @@
     justify-content: center;
     gap: 14px;
     max-width: 282px;
-    height: 50px;
-    margin: 52px 19px 36px;
+    margin: 30px 19px 36px;
+  }
+
+  .profile__image {
+    margin: 0;
   }
 
   .profile__edit-button {
@@ -114,7 +117,6 @@
   }
 
   .profile__description {
-    font-family: Inter, Arial, Helvetica, sans-serif;
     width: 282px;
     height: 14px;
     font-weight: 400;
@@ -127,11 +129,11 @@
   }
 
   .profile__title {
-    font-family: Inter, Arial, Helvetica, sans-serif;
     font-weight: 500;
     font-size: 22px;
     line-height: 26.63px;
     margin: 0;
+    max-width: 240px;
     white-space: nowrap;
     grid-area: title;
     text-overflow: ellipsis;

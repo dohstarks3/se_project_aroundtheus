@@ -1,7 +1,5 @@
 .footer {
-  margin: 70px 562px 60px 0;
-  max-width: 318px;
-  height: 18px;
+  padding-bottom: 60px;
 }
 
 .footer__copyright {
@@ -16,7 +14,6 @@
 @media screen and (max-width: 722px) {
   .footer {
     max-width: 282px;
-    height: 14px;
     margin: 0 19px 36px;
   }
 

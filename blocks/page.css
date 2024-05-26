@@ -16,3 +16,14 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
   color: white;
 }
+
+@media screen and (max-width: 722px) {
+  .page__section {
+    max-width: 282px;
+  }
+
+  .page__content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
