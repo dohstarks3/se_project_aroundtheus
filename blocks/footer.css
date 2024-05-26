@@ -15,6 +15,7 @@
   .footer {
     max-width: 282px;
     margin: 0 19px 36px;
+    padding: 0;
   }
 
   .footer__copyright {
