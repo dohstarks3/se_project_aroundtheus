@@ -14,4 +14,6 @@ The project "Around the US" is the 3rd project in the tripleten course. It is me
 
 ## Project Pictures
 
-![Project 3 Desktop View 1]
+![Project 3 Desktop View 1](./images/demo/Halfview.png)
+
+![Project 3 Desktop View 2](./images/demo/fullview.png)
