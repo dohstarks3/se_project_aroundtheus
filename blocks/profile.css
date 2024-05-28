@@ -120,9 +120,7 @@
     width: 282px;
     padding: 0;
     font-size: 14px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    line-height: 16.94px;
     height: 100%;
   }
 
@@ -132,10 +130,6 @@
     line-height: 26.63px;
     margin: 0;
     max-width: 240px;
-    white-space: nowrap;
     grid-area: title;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
   }
 }
