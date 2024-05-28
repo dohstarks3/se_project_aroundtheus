@@ -25,13 +25,15 @@
   width: 193px;
   margin-top: 25px;
   margin-bottom: 25px;
+  font-weight: 900;
+  font-size: 24px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
 .card__like-button {
-  background: transparent url(../images/likeinactive.jpg) center no-repeat;
+  background: transparent url(../images/likeinactive2.svg) center no-repeat;
   width: 21px;
   height: 18px;
   border: none;
