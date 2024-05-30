@@ -17,3 +17,13 @@ Some of the techniques used were media querys which helped make the website resp
 5. BEM Methodolody
 
 ## Pictures of Page
+
+![Full Desktop View](./images/demo/fullview.png)
+
+![Tablet View](./images/demo/Tablet%20View.png)
+
+![Mobile View](./images/demo/Mobile%20View.png)
+
+## Github Link
+
+[Github](https://github.com/dohstarks3/se_project_aroundtheus.git)
