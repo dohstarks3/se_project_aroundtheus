@@ -27,3 +27,7 @@ Some of the techniques used were media querys which helped make the website resp
 ## Github Link
 
 [Github](https://github.com/dohstarks3/se_project_aroundtheus.git)
+
+## Prject 3 Video Link
+
+![Video Submission Link](https://drive.google.com/file/d/1g-VTjQfUUv5n7BfxFvGVH_iXUqnRnp9C/view?usp=sharing)
