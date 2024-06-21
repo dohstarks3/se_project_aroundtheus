@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S</title>
-    <link href="./pages/index.css" rel="stylesheet" />
+    <link href="./pages/styles.css" rel="stylesheet" />
   </head>
   <body class="page">
     <div class="page__content">
@@ -30,74 +30,7 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="cards page__section">
-          <ul class="cards__list">
-            <li class="card" id="lake-louise">
-              <img
-                src="./images/lake-louise.jpg"
-                class="card__image"
-                alt="Lake Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Lake Louise</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card" id="yosemite">
-              <img
-                src="./images/yosemite.jpg"
-                class="card__image"
-                alt="Valley Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Yosemite Valley</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/bald-mountains.jpg"
-                class="card__image"
-                alt="Mountain Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Bald Mountains</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/latemar.jpg"
-                class="card__image"
-                alt="Starlight Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Latemar</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/vanoise.jpg"
-                class="card__image"
-                alt="National Park Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Vanoise National Park</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/lago.jpg"
-                class="card__image"
-                alt="Cabin Picture"
-              />
-              <div class="card__description">
-                <h2 class="card__description-title">Lago di Braies</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
     </div>
@@ -113,11 +46,13 @@
             type="text"
             name="profile__title"
             placeholder="Name"
+            id="profile-title-input"
             class="modal__input"
           />
           <input
             type="text"
             name="profile__description"
+            id="profile-description-input"
             class="modal__input"
             placeholder="Description"
           />
@@ -126,6 +61,18 @@
       </div>
     </div>
 
+    <template id="card-template">
+      <li class="card">
+        <img src="" class="card__image" alt="" />
+        <div class="card__description">
+          <h2 class="card__description-title"></h2>
+          <button class="card__like-button" type="button"></button>
+        </div>
+      </li>
+    </template>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>
+
+event liste
