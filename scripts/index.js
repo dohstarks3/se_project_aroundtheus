@@ -76,7 +76,7 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 //Card Functions//
 
-initialCards.forEach((cardData) => {
+function getCardElement(cardData) {
   //clone the template element with all its content and store it in a cardElement variable
   const cardElement = cardTemplate.cloneNode(true);
   console.log(cardElement);
@@ -89,6 +89,11 @@ initialCards.forEach((cardData) => {
   //set the image alt text to the name field of the object\\
   cardTitleEl.textContent = cardData.name;
   cardImageEl.alt = cardData.name;
+  return cardElement;
+}
+
+initialCards.forEach((cardData) => {
+  const cardElement = getCardElement(cardData);
 
   //set the card title to the name field of the object, too
   //return the ready HTML element with the filled-in data
