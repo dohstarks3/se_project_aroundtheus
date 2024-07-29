@@ -77,13 +77,13 @@
             type="text"
             name="Title"
             placeholder="Name"
-            id="profile-title-input"
+            id="add-title-input"
             class="modal__input modal__input_type_title"
           />
           <input
             type="text"
             name="url"
-            id="profile-description-input"
+            id="url-link-input"
             class="modal__input modal__input_type_url"
             placeholder="Image URL"
           />
@@ -92,8 +92,20 @@
       </div>
     </div>
 
+    <div class="modal" id="image-preview">
+      <div class="modal__container modal__container_preview">
+        <button
+          class="modal__close-button"
+          id="image-preview-close-button"
+        ></button>
+        <img src="" alt="" class="modal__image" />
+        <h6 class="modal__caption"></h6>
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
+        <button class="card__delete-button" type="button"></button>
         <img src="" class="card__image" alt="" />
         <div class="card__description">
           <h2 class="card__description-title"></h2>

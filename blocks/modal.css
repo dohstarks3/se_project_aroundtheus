@@ -25,6 +25,25 @@
   position: relative;
 }
 
+.modal__container_preview {
+  display: flex;
+  max-width: 75vw;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+}
+
+.modal__caption {
+  position: absolute;
+  font-weight: 400;
+  width: 291px;
+  height: 12px;
+  margin: 0;
+  bottom: -22px;
+  color: #fff;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
 .modal__close-button {
   position: absolute;
   top: -45px;
@@ -94,6 +113,11 @@
   margin-top: 0;
   padding: 0;
   margin-bottom: 48px;
+}
+
+.modal__image {
+  object-fit: cover;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 722px) {
