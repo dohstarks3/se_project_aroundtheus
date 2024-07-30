@@ -99,7 +99,6 @@ function handleAddCardFormSubmit(e) {
     liked: false,
   };
 
-  initialCards.push(newCard);
   const cardElement = getCardElement(newCard);
   cardListEl.prepend(cardElement);
   closePopup(addCardModal);
@@ -115,11 +114,18 @@ function handleRemoveCardEl(e) {
   // find the card object with the corresponding name from the initialCards array, and remove it from the array
   const cardIndex = initialCards.findIndex((card) => card.name === cardName);
   // remove the element from the initialCards array
-  const deletedCard = initialCards.splice(cardIndex, 1);
   // remove this card element from the DOM
   cardElement.remove();
   console.log(`The following card has been removed: ${deletedCard[0].name}`);
   console.log(initialCards);
+}
+
+function openPopup(modal) {
+  modal.classList.add("modal_opened");
+}
+
+function closePopup(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 //Event Listeners//
@@ -127,15 +133,11 @@ profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
 
-  editProfileModal.classList.add("modal_opened");
+  openPopup(editProfileModal);
 });
 
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
-}
-
 addCardButton.addEventListener("click", () => {
-  addCardModal.classList.add("modal_opened");
+  openPopup(addCardModal);
 });
 
 profileEditCloseButton.addEventListener("click", () => {
@@ -192,7 +194,8 @@ function getCardElement(cardData) {
   cardImageEl.addEventListener("click", () => {
     // here we need to open the preview modal & pass inside the image card & name
     document.querySelector(".modal__image").src = cardData.link;
-    document.querySelector("#image-preview").classList.add("modal_opened");
+    document.querySelector(".modal__image").alt = cardData.name;
+    imageModalPreview.classList.add("modal_opened");
     document.querySelector(".modal__caption").textContent = cardData.name;
   });
 
@@ -210,23 +213,3 @@ initialCards.forEach((cardData) => {
 });
 
 //Like Button Function//
-
-// const likeButtons = document.querySelectorAll(".card__like-button");
-// likeButtons.forEach((likeButton) => {
-//   likeButton.addEventListener("click", () => {
-//     // likeButton.classList.toggle("card__like-button_active");
-//     // Get the ID of the card element that contains the like button
-
-//     // Get the CardData object with the corresponding ID
-//     const card = initialCards.find((card) => card.id === cardId);
-
-//     // Change the liked field of the card object
-//     card.liked = !card.liked;
-//     console.log(card.liked);
-//     // likeButton.classList.toggle("card__like-button_active");
-//     // if (card) {
-//     //   card.liked = !card.liked;
-//     //   likeButton.classList.toggle("card__like-button_active");
-//     // }
-//   });
-// });
