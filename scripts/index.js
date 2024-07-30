@@ -116,7 +116,6 @@ function handleRemoveCardEl(e) {
   // remove the element from the initialCards array
   // remove this card element from the DOM
   cardElement.remove();
-  console.log(`The following card has been removed: ${deletedCard[0].name}`);
   console.log(initialCards);
 }
 
