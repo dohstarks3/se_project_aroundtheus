@@ -107,16 +107,7 @@ function handleAddCardFormSubmit(e) {
 
 function handleRemoveCardEl(e) {
   const cardElement = e.target.closest(".card");
-  // get the name of the card
-  const cardName = cardElement.querySelector(
-    ".card__description-title"
-  ).textContent;
-  // find the card object with the corresponding name from the initialCards array, and remove it from the array
-  const cardIndex = initialCards.findIndex((card) => card.name === cardName);
-  // remove the element from the initialCards array
-  // remove this card element from the DOM
   cardElement.remove();
-  console.log(initialCards);
 }
 
 function openPopup(modal) {
