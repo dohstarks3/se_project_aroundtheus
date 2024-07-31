@@ -128,6 +128,7 @@ function closePopup(modal) {
 }
 
 //Event Listeners//
+
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
@@ -194,7 +195,7 @@ function getCardElement(cardData) {
     // here we need to open the preview modal & pass inside the image card & name
     document.querySelector(".modal__image").src = cardData.link;
     document.querySelector(".modal__image").alt = cardData.name;
-    imageModalPreview.classList.add("modal_opened");
+    openPopup(imageModalPreview);
     document.querySelector(".modal__caption").textContent = cardData.name;
   });
 
