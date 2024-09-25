@@ -48,7 +48,7 @@
         ></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form" novalidate>
-          <label for="" class="popup__label">
+          <label for="" class="modal__label">
             <input
               required
               type="text"
@@ -60,15 +60,24 @@
               minlength="2"
             />
           </label>
-          <span class="popup__error">Error Message</span>
-          <input
-            required
-            type="text"
-            name="profile__description"
-            id="profile-description-input"
-            class="modal__input"
-            placeholder="Description"
-          />
+          <span class="modal__error" id="profile-edit-modal-title-error"
+            >Error Message</span
+          >
+          <label for="" class="modal__label">
+            <input
+              required
+              type="text"
+              name="profile__description"
+              id="profile-description-input"
+              class="modal__input"
+              placeholder="Description"
+              minlength="2"
+              maxlength="200"
+            />
+          </label>
+          <span class="modal__error" id="profile-edit-modal-description-error"
+            >Error Message</span
+          >
           <button class="modal__button" onclick="submit">Save</button>
         </form>
       </div>

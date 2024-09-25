@@ -3,8 +3,14 @@ function setEventListeners(formEls, config) {
   const inputEls = [...formEls.querySelectorAll(inputSelector)];
   inputEls.forEach((inputEls) => {
     inputEls.addEventListener("input", (e) => {
-      // console.log(inputEls.validity.valid);
+      const errorEl = document.querySelector(
+        `#${config.profileEditModalErrorId}`
+      );
       if (inputEls.validity.valid) {
+        // add the modal__error_visible class to the error message
+        errorEl.classList.remove(config.errorClass);
+      } else {
+        errorEl.classList.add(config.errorClass);
       }
     });
   });
@@ -38,6 +44,7 @@ const config = {
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
+  profileEditModalErrorId: "profile-edit-modal-title-error",
 };
 
 enableValidation(config);
