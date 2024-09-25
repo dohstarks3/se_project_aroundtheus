@@ -203,4 +203,4 @@ initialCards.forEach((cardData) => {
   cardListEl.append(cardElement);
 });
 
-//Like Button Function//
+console.log(document.form[0][0].validity);
