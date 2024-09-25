@@ -47,15 +47,22 @@
           id="edit-profile-close-button"
         ></button>
         <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+        <form class="modal__form" novalidate>
+          <label for="" class="popup__label">
+            <input
+              required
+              type="text"
+              name="profile__title"
+              placeholder="Name"
+              id="profile-title-input"
+              class="modal__input"
+              maxlength="40"
+              minlength="2"
+            />
+          </label>
+          <span class="popup__error">Error Message</span>
           <input
-            type="text"
-            name="profile__title"
-            placeholder="Name"
-            id="profile-title-input"
-            class="modal__input"
-          />
-          <input
+            required
             type="text"
             name="profile__description"
             id="profile-description-input"
@@ -72,7 +79,7 @@
       <div class="modal__container">
         <button class="modal__close-button" id="add-card-close-button"></button>
         <p class="modal__heading">New Place</p>
-        <form nonvalidate class="modal__form" id="edit-profile-form">
+        <form class="modal__form popup_form" id="edit-profile-form">
           <input
             type="text"
             name="Title"

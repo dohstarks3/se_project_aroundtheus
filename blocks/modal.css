@@ -124,6 +124,18 @@
   max-width: 100%;
 }
 
+.modal__error {
+  font-size: 12px;
+  line-height: 15px;
+  color: #f00;
+  position: absolute;
+  visibility: hidden;
+}
+
+.modal__error_visible {
+  visibility: visible;
+}
+
 @media screen and (max-width: 722px) {
   .modal__container {
     background-color: white;
