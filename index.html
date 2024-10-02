@@ -55,14 +55,14 @@
               name="profile__title"
               placeholder="Name"
               id="profile-title-input"
-              class="modal__input"
+              class="modal__input modal__input_type_error"
               maxlength="40"
               minlength="2"
             />
+            <span class="modal__error" id="profile-title-input-error"
+              >Error Message</span
+            >
           </label>
-          <span class="modal__error" id="profile-edit-modal-title-error"
-            >Error Message</span
-          >
           <label for="" class="modal__label">
             <input
               required
@@ -75,8 +75,8 @@
               maxlength="200"
             />
           </label>
-          <span class="modal__error" id="profile-edit-modal-description-error"
-            >Error Message</span
+          <span class="modal__error" id="profile-description-input-error"
+            >Please fill out this field.</span
           >
           <button class="modal__button" onclick="submit">Save</button>
         </form>

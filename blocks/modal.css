@@ -102,9 +102,13 @@
   top: 306px;
   left: 461px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0 0 29.74px;
+  margin: 0 0 0 29.74px;
   padding: 0;
   color: rgba(0, 0, 0, 1);
+}
+
+.modal__input_type_error {
+  border-bottom: 1px solid #f00;
 }
 
 .modal__input::placeholder {
@@ -122,6 +126,10 @@
 .modal__image {
   object-fit: cover;
   max-width: 100%;
+}
+
+.modal__label {
+  position: relative;
 }
 
 .modal__error {

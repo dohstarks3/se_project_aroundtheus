@@ -202,5 +202,3 @@ initialCards.forEach((cardData) => {
   //return the ready HTML element with the filled-in data
   cardListEl.append(cardElement);
 });
-
-console.log(document.form[0][0].validity);

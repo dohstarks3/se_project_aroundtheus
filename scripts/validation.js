@@ -1,17 +1,20 @@
-function setEventListeners(formEls, config) {
+function showInputError(formEl, inputEl, config) {}
+
+function checkInputValidity(formEl, inputEl, config) {
+  if (!inputEl.validity.valid) {
+    showInputError(formEl, inputEl, config);
+  } else {
+    hideInputError(formEl, inputEl, config);
+  }
+}
+
+function setEventListeners(formEl, config) {
   const { inputSelector } = config;
-  const inputEls = [...formEls.querySelectorAll(inputSelector)];
-  inputEls.forEach((inputEls) => {
-    inputEls.addEventListener("input", (e) => {
-      const errorEl = document.querySelector(
-        `#${config.profileEditModalErrorId}`
-      );
-      if (inputEls.validity.valid) {
-        // add the modal__error_visible class to the error message
-        errorEl.classList.remove(config.errorClass);
-      } else {
-        errorEl.classList.add(config.errorClass);
-      }
+  const inputEls = [...formEl.querySelectorAll(config.inputSelector)];
+
+  inputEls.forEach((inputEl) => {
+    inputEl.addEventListener("input", (e) => {
+      checkInputValidity(formEl, inputEl, config);
     });
   });
 }
@@ -44,7 +47,6 @@ const config = {
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
-  profileEditModalErrorId: "profile-edit-modal-title-error",
 };
 
 enableValidation(config);
