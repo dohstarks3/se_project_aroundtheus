@@ -102,7 +102,7 @@
   top: 306px;
   left: 461px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0 0 0 29.74px;
+  margin: 0
   padding: 0;
   color: rgba(0, 0, 0, 1);
 }
@@ -138,6 +138,10 @@
   color: #f00;
   position: absolute;
   visibility: hidden;
+  bottom: 142px;
+  top: 35px;
+  /* bottom: 0px; */
+  left: 0px;
 }
 
 .modal__error_visible {
