@@ -112,6 +112,18 @@ function handleRemoveCardEl(e) {
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+
+  // Add event listener to close the modal when clicking outside of it or pressing the escape key
+  modal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal_opened")) {
+      closePopup(modal);
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("modal_opened")) {
+      closePopup(modal);
+    }
+  });
 }
 
 function closePopup(modal) {
@@ -119,6 +131,14 @@ function closePopup(modal) {
 }
 
 //Event Listeners//
+
+// window.addEventListener("click", (e) => {
+//   modal.forEach((modal) => {
+//     if (modal.classList.contains("modal_opened") && !modal.contains(e.target)) {
+//       closePopup(modal);
+//     }
+//   });
+// });
 
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;

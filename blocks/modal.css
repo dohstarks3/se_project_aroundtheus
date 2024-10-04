@@ -94,6 +94,22 @@
   line-height: 21.78px;
 }
 
+.modal__button_disabled {
+  width: 358px;
+  height: 50.15px;
+  background-color: white;
+  color: #c5c5c5;
+  border: 1px solid #c5c5c5;
+  border-radius: 2px;
+  padding: 0;
+  margin-bottom: 36.75px;
+  border-radius: 2px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+}
+
 .modal__input {
   font-family: Inter, Arial, Helvetica, sans-serif;
   width: 358px;
@@ -102,7 +118,7 @@
   top: 306px;
   left: 461px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0
+  margin: 0;
   padding: 0;
   color: rgba(0, 0, 0, 1);
 }
@@ -225,6 +241,22 @@
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-weight: 400;
     font-size: 14px;
+    line-height: 21.78px;
+  }
+
+  .modal__button_disabled {
+    width: 358px;
+    height: 50.15px;
+    background-color: white;
+    color: #c5c5c5;
+    border: 1px solid #c5c5c5;
+    border-radius: 2px;
+    padding: 0;
+    margin-bottom: 36.75px;
+    border-radius: 2px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
     line-height: 21.78px;
   }
 }
