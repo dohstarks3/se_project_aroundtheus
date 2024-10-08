@@ -107,27 +107,34 @@ function handleAddCardFormSubmit(e) {
 
 function handleRemoveCardEl(e) {
   const cardElement = e.target.closest(".card");
-  cardElement.remove();
+  cardElement.remove(modal);
+}
+
+function handleEscape(e) {
+  if (e.key === "Escape") {
+    const modal = document.querySelector(".modal_opened");
+    closePopup(modal);
+  }
+}
+
+function handleCloseOverlayClick(e) {
+  if (e.target.classList.contains("modal_opened")) {
+    closePopup(modal);
+  }
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
 
   // Add event listener to close the modal when clicking outside of it or pressing the escape key
-  modal.addEventListener("click", (e) => {
-    if (e.target.classList.contains("modal_opened")) {
-      closePopup(modal);
-    }
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("modal_opened")) {
-      closePopup(modal);
-    }
-  });
+  modal.addEventListener("click", handleCloseOverlayClick);
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
+  modal.removeEventListener("click", handleCloseOverlayClick);
 }
 
 //Event Listeners//
