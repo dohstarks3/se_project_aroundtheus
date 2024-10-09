@@ -1,25 +1,17 @@
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   // print out every input element's id
-  console.log("In showInputError");
-  console.log(inputEl.id);
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  console.log(errorMessageEl);
   inputEl.classList.add(inputErrorClass);
   errorMessageEl.textContent = inputEl.validationMessage;
   errorMessageEl.classList.add(errorClass);
-  console.log(errorMessageEl);
 }
 
 function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   // print out every input element's id
-  console.log("In hideInputError");
-  console.log(inputEl.id);
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  console.log(errorMessageEl);
   inputEl.classList.remove(inputErrorClass);
   errorMessageEl.textContent = "";
   errorMessageEl.classList.remove(errorClass);
-  console.log(errorMessageEl);
 }
 
 function checkInputValidity(formEl, inputEl, config) {

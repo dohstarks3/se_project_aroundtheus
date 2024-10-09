@@ -90,7 +90,6 @@ function handleAddCardFormSubmit(e) {
 
   const cardName = document.querySelector("#add-title-input").value;
   const cardLink = document.querySelector("#url-link-input").value;
-  console.log(cardName, cardLink);
 
   const newCard = {
     id: initialCards.length + 1,
@@ -180,7 +179,6 @@ addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 function getCardElement(cardData) {
   //clone the template element with all its content and store it in a cardElement variable
   const cardElement = cardTemplate.cloneNode(true);
-  console.log(cardElement);
   //access the card title and image and store them in variables
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__description-title");
@@ -207,7 +205,6 @@ function getCardElement(cardData) {
   likeButton.addEventListener("click", () => {
     cardData.liked = !cardData.liked;
     likeButton.classList.toggle("card__like-button_active");
-    console.log(`${cardData.name} liked: ${cardData.liked}`);
   });
 
   cardImageEl.addEventListener("click", () => {
