@@ -107,7 +107,7 @@ function handleAddCardFormSubmit(e) {
 
 function handleRemoveCardEl(e) {
   const cardElement = e.target.closest(".card");
-  cardElement.remove(modal);
+  cardElement.remove();
 }
 
 function handleEscape(e) {
@@ -118,6 +118,7 @@ function handleEscape(e) {
 }
 
 function handleCloseOverlayClick(e) {
+  const modal = document.querySelector(".modal_opened");
   if (e.target.classList.contains("modal_opened")) {
     closePopup(modal);
   }
