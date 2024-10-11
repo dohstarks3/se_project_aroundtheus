@@ -117,10 +117,11 @@ function handleEscape(e) {
 }
 
 function handleCloseOverlayClick(e) {
-  const modal = document.querySelector(".modal_opened");
   if (e.target.classList.contains("modal_opened")) {
-    closePopup(modal);
+    closePopup(e.currentTarget);
   }
+  // if the event target is either the modal element or close button element
+  //   then close modal (modal will be e.currentTarget)
 }
 
 function openPopup(modal) {
