@@ -12,11 +12,8 @@ export class Card {
 
   // Method to get the card template
   _getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-
+    const template = document.querySelector(this._cardSelector);
+    const cardElement = template.content.firstElementChild.cloneNode(true);
     return cardElement;
   }
 
