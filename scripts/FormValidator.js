@@ -1,3 +1,5 @@
+import { toggleButtonState } from "./validation.js";
+
 class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
@@ -28,7 +30,7 @@ class FormValidator {
 
   //These may not work due to inputEls and submitButton not being in the object//
 
-  _setEventListeners() {
+  _setEventListeners(inputEls, submitButton, config) {
     this._inputEls = [...this._form.querySelectorAll(this._inputSelector)];
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     toggleButtonState(inputEls, submitButton, config);

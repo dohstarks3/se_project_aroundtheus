@@ -14,7 +14,7 @@ function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   errorMessageEl.classList.remove(errorClass);
 }
 
-function checkInputValidity(formEl, inputEl, config) {
+export function checkInputValidity(formEl, inputEl, config) {
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, config);
   } else {
@@ -22,7 +22,11 @@ function checkInputValidity(formEl, inputEl, config) {
   }
 }
 
-function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
+export function toggleButtonState(
+  inputEls,
+  submitButton,
+  { inactiveButtonClass }
+) {
   let foundInvalid = false;
 
   inputEls.forEach((inputEl) => {
