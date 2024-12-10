@@ -45,6 +45,7 @@ export function toggleButtonState(
 }
 
 function setEventListeners(formEl, config) {
+  console.log(1231231);
   const { inputSelector } = config;
   const inputEls = [...formEl.querySelectorAll(config.inputSelector)];
   const submitButton = formEl.querySelector(config.submitButtonSelector);

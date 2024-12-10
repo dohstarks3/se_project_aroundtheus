@@ -1,7 +1,6 @@
-import { toggleButtonState } from "./validation.js";
-
 class FormValidator {
   constructor(settings, formElement) {
+    this._config = settings;
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._inactiveButtonClass = settings.inactiveButtonClass;
@@ -30,15 +29,19 @@ class FormValidator {
 
   //These may not work due to inputEls and submitButton not being in the object//
 
-  _setEventListeners(inputEls, submitButton, config) {
+  _setEventListeners() {
     this._inputEls = [...this._form.querySelectorAll(this._inputSelector)];
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
-    toggleButtonState(inputEls, submitButton, config);
+    this.toggleButtonState(this._inputEls, this._submitButton, this._config);
 
-    inputEls.forEach((inputEl) => {
+    this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         checkInputValidity(this.form, inputEl, config);
-        toggleButtonState(inputEls, submitButton, config);
+        this.toggleButtonState(
+          this._inputEls,
+          this._submitButton,
+          this._config
+        );
       });
     });
   }
@@ -58,7 +61,7 @@ class FormValidator {
     errorMessageEl.classList.add(this._errorClass);
   }
 
-  hasInvalidInput() {}
+  //hasInvalidInput() {}
 }
 
 export default FormValidator;

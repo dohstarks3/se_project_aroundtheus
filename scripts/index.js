@@ -1,5 +1,7 @@
 // index.js
-import { Card, CardList } from "./Card.js";
+import { Card } from "./Card.js";
+import { CardList } from "./CardList.js";
+
 import FormValidator from "./FormValidator.js";
 
 const initialCards = [
