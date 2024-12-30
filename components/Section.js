@@ -1,6 +1,6 @@
-import { Card } from "./Card.js";
+import { Card, createCard } from "./Card.js";
 
-export class CardList {
+export class Section {
   constructor(containerSelector) {
     this._container = document.querySelector(containerSelector);
   }
@@ -8,13 +8,12 @@ export class CardList {
   // Render initial cards
   renderItems(items, cardSelector, handleCardClick, handleDeleteClick) {
     items.forEach((item) => {
-      const card = new Card(
+      const cardElement = createCard(
         item,
         cardSelector,
         handleCardClick,
         handleDeleteClick
       );
-      const cardElement = card.generateCard();
       this._container.append(cardElement);
     });
   }

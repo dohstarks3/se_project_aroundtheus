@@ -1,8 +1,8 @@
 // index.js
-import { Card } from "./Card.js";
-import { CardList } from "./CardList.js";
+import { Card, createCard } from "../components/Card.js";
+import { Section } from "../components/Section.js";
 
-import FormValidator from "./FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -57,6 +57,8 @@ const profileDescriptionInput = document.querySelector(
 );
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
+const modalImage = document.querySelector(".modal__image");
+const modalCaption = document.querySelector(".modal__caption");
 
 // Functions to handle opening and closing modals
 function openPopup(modal) {
@@ -86,8 +88,6 @@ function handleCloseOverlayClick(e) {
 
 // Event handlers for card actions
 function handleCardClick(name, link) {
-  const modalImage = document.querySelector(".modal__image");
-  const modalCaption = document.querySelector(".modal__caption");
   modalImage.src = link;
   modalImage.alt = name;
   modalCaption.textContent = name;
@@ -110,8 +110,8 @@ function handleProfileEditSubmit(e) {
 function handleAddCardFormSubmit(e) {
   e.preventDefault();
 
-  const cardName = document.querySelector("#add-title-input").value;
-  const cardLink = document.querySelector("#url-link-input").value;
+  let cardName = document.querySelector("#add-title-input").value;
+  let cardLink = document.querySelector("#url-link-input").value;
 
   const newCardData = {
     id: Date.now(), // Unique ID
@@ -120,22 +120,20 @@ function handleAddCardFormSubmit(e) {
     liked: false,
   };
 
-  const card = new Card(
+  const cardElement = createCard(
     newCardData,
     "#card-template",
     handleCardClick,
     handleDeleteClick
   );
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
-
+  section.addItem(cardElement);
   closePopup(addCardModal);
   addCardForm.reset();
 }
 
-// Initialize CardList and render initial cards
-const cardList = new CardList(".cards__list");
-cardList.renderItems(
+// Initialize Section and render initial cards
+const section = new Section(".cards__list");
+section.renderItems(
   initialCards,
   "#card-template",
   handleCardClick,
