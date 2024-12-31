@@ -120,6 +120,9 @@ function handleAddCardFormSubmit(e) {
     liked: false,
   };
 
+  //it was originally const on both of these inputs  on lines 113-114 but I was told that was incorrect as well. Also is it not the point to search for this element everytime we run this function//
+  //everttime the submit button is clicked there may or may not be new data inside that form so shouldnt we query it every time?//
+
   const cardElement = createCard(
     newCardData,
     "#card-template",
