@@ -59,6 +59,8 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const modalImage = document.querySelector(".modal__image");
 const modalCaption = document.querySelector(".modal__caption");
+const titleInput = document.querySelector("#add-title-input").value;
+const linkInput = document.querySelector("#url-link-input").value;
 
 // Functions to handle opening and closing modals
 function openPopup(modal) {
@@ -106,12 +108,13 @@ function handleProfileEditSubmit(e) {
   closePopup(editProfileModal);
 }
 
-// Handle add card form submission
+//When I declare the query selectors for this function outside the card name and link it causes the values of the inputs to be empty because they are not being updated when the event listener gets called. This causes the cards to not show any data so we are not getting an actual value per your comment. I can provide a visual if you want//
+
 function handleAddCardFormSubmit(e) {
   e.preventDefault();
 
-  let cardName = document.querySelector("#add-title-input").value;
-  let cardLink = document.querySelector("#url-link-input").value;
+  const cardName = titleInput.value; // use them here
+  const cardLink = linkInput.value;
 
   const newCardData = {
     id: Date.now(), // Unique ID
@@ -120,8 +123,7 @@ function handleAddCardFormSubmit(e) {
     liked: false,
   };
 
-  //it was originally const on both of these inputs  on lines 113-114 but I was told that was incorrect as well. Also is it not the point to search for this element everytime we run this function//
-  //everttime the submit button is clicked there may or may not be new data inside that form so shouldnt we query it every time?//
+  //Thanks for the update. When I open the website the submit button for the profile and cards and disabled when there is no information inserted. Both start off disabled. Is this not the case on your end?//
 
   const cardElement = createCard(
     newCardData,
