@@ -19,12 +19,16 @@ class FormValidator {
     });
 
     if (foundInvalid) {
-      submitButton.classList.add(inactiveButtonClass);
-      submitButton.disabled = true;
+      this.disableButton();
     } else {
       submitButton.classList.remove(inactiveButtonClass);
       submitButton.disabled = false;
     }
+  }
+
+  disableButton() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
   }
 
   //These may not work due to inputEls and submitButton not being in the object//
@@ -47,7 +51,7 @@ class FormValidator {
   }
 
   checkInputValidity(inputEl) {
-    if (this.hasInvalidInput) {
+    if (this.hasInvalidInput(inputEl)) {
       this._showInputError(inputEl);
     } else {
       this._hideInputError(inputEl);
@@ -76,7 +80,7 @@ class FormValidator {
     errorMessageEl.classList.remove(this._errorClass);
   }
 
-  hasInvalidInput() {
+  hasInvalidInput(inputEl) {
     return !inputEl.validity.valid;
   }
 }

@@ -59,8 +59,8 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const modalImage = document.querySelector(".modal__image");
 const modalCaption = document.querySelector(".modal__caption");
-const titleInput = document.querySelector("#add-title-input").value;
-const linkInput = document.querySelector("#url-link-input").value;
+const titleInput = document.querySelector("#add-title-input");
+const linkInput = document.querySelector("#url-link-input");
 
 // Functions to handle opening and closing modals
 function openPopup(modal) {
@@ -108,8 +108,6 @@ function handleProfileEditSubmit(e) {
   closePopup(editProfileModal);
 }
 
-//When I declare the query selectors for this function outside the card name and link it causes the values of the inputs to be empty because they are not being updated when the event listener gets called. This causes the cards to not show any data so we are not getting an actual value per your comment. I can provide a visual if you want//
-
 function handleAddCardFormSubmit(e) {
   e.preventDefault();
 
@@ -120,10 +118,8 @@ function handleAddCardFormSubmit(e) {
     id: Date.now(), // Unique ID
     name: cardName,
     link: cardLink,
-    liked: false,
+    liked: false, //
   };
-
-  //Thanks for the update. When I open the website the submit button for the profile and cards and disabled when there is no information inserted. Both start off disabled. Is this not the case on your end?//
 
   const cardElement = createCard(
     newCardData,
@@ -134,6 +130,7 @@ function handleAddCardFormSubmit(e) {
   section.addItem(cardElement);
   closePopup(addCardModal);
   addCardForm.reset();
+  addFormValidator.disableButton();
 }
 
 // Initialize Section and render initial cards
