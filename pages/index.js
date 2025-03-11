@@ -134,13 +134,24 @@ function handleAddCardFormSubmit(e) {
 }
 
 // Initialize Section and render initial cards
-const section = new Section(".cards__list");
-section.renderItems(
-  initialCards,
-  "#card-template",
-  handleCardClick,
-  handleDeleteClick
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const container = document.querySelector(".cards__list");
+      container.prepend(
+        createCard(
+          item,
+          "#card-template",
+          () => {},
+          () => {}
+        )
+      );
+    },
+  },
+  ".cards__list"
 );
+section.renderItems();
 
 // Event listeners for opening modals
 profileEditButton.addEventListener("click", () => {
