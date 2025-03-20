@@ -52,6 +52,7 @@
   position: absolute;
   top: -45px;
   right: -45px;
+  z-index: auto;
   cursor: pointer;
   background-image: url(../images/Close-Icon.svg);
   height: 40px;
