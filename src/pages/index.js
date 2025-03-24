@@ -1,9 +1,19 @@
 // index.js
 import { Card, createCard } from "../components/Card.js";
 import { Section } from "../components/Section.js";
-import { Popup, PopupWithForm, PopupWithImage } from "../components/Popup.js";
 import FormValidator from "../components/FormValidator.js";
 import { UserInfo } from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+
+import "./index.css";
+
+import siteLogo from "../images/SiteLogo.svg";
+import profileImage from "../images/jacques-cousteau.png";
+
+// Set the image sources dynamically
+document.querySelector(".header__logo").src = siteLogo;
+document.querySelector(".profile__image").src = profileImage;
 
 // Initial cards
 const initialCards = [
