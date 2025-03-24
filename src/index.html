@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S</title>
-    <link href="index.css" rel="stylesheet" />
   </head>
   <body class="page">
     <div class="page__content">
@@ -31,7 +30,6 @@
     </footer>
 
     <!--Edit Modal-->
-
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -91,10 +89,11 @@
               class="modal__input modal__input_type_title"
               minlength="2"
               maxlength="30"
-            /><span class="modal__error" id="add-title-input-error"
+            />
+            <span class="modal__error" id="add-title-input-error"
               >Error Message</span
-            ></label
-          >
+            >
+          </label>
           <label for="url-link-input" class="modal__label">
             <input
               required
@@ -103,10 +102,11 @@
               id="url-link-input"
               class="modal__input modal__input_type_url"
               placeholder="Image URL"
-            /><span class="modal__error" id="url-link-input-error"
+            />
+            <span class="modal__error" id="url-link-input-error"
               >Error Message</span
-            ></label
-          >
+            >
+          </label>
           <button class="modal__button">Save</button>
         </form>
       </div>
@@ -133,7 +133,5 @@
         </div>
       </li>
     </template>
-
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>
