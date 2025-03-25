@@ -3,8 +3,10 @@ import { Card, createCard } from "../components/Card.js";
 import { Section } from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { settings } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import initialCards from "../utils/constants.js";
 
 import "./index.css";
 
@@ -14,46 +16,6 @@ import profileImage from "../images/jacques-cousteau.png";
 // Set the image sources dynamically
 document.querySelector(".header__logo").src = siteLogo;
 document.querySelector(".profile__image").src = profileImage;
-
-// Initial cards
-const initialCards = [
-  {
-    id: 1,
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-    liked: false,
-  },
-  {
-    id: 2,
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-    liked: false,
-  },
-  {
-    id: 3,
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-    liked: false,
-  },
-  {
-    id: 4,
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-    liked: false,
-  },
-  {
-    id: 5,
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-    liked: false,
-  },
-  {
-    id: 6,
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-    liked: false,
-  },
-];
 
 // Select modal elements
 const editProfileModal = document.querySelector("#profile-edit-modal");
@@ -138,8 +100,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const container = document.querySelector(".cards__list");
-      container.prepend(
+      section.addItem(
         createCard(item, "#card-template", handleCardClick, handleDeleteClick)
       );
     },
@@ -160,43 +121,9 @@ addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-imageModalPreview.addEventListener("click", () => {
-  // Example of manually opening image preview (if needed)
-  imagePreviewPopup.open();
-});
-
-// Modals close
-editProfileModal
-  .querySelector(".modal__close-button")
-  .addEventListener("click", () => {
-    editProfilePopup.close();
-  });
-
-addCardModal
-  .querySelector(".modal__close-button")
-  .addEventListener("click", () => {
-    addCardPopup.close();
-  });
-
-imageModalPreview
-  .querySelector(".modal__close-button")
-  .addEventListener("click", () => {
-    imagePreviewPopup.close();
-  });
-
 // Form submissions
 //editProfileForm.addEventListener("submit", handleProfileEditSubmit);
 //addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-
-// Form validation
-const settings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
 
 const editFormValidator = new FormValidator(settings, editProfileForm);
 const addFormValidator = new FormValidator(settings, addCardForm);

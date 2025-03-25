@@ -1,24 +1,25 @@
-function handleCloseOverlayClick(e) {
-  if (e.target.classList.contains("modal_opened")) {
-    e.currentTarget.classList.remove("modal_opened");
-  }
-}
+// function handleCloseOverlayClick(e) {
+//   if (e.target.classList.contains("modal_opened")) {
+//     e.currentTarget.classList.remove("modal_opened");
+//   }
+// }
 
 export class Popup {
-  constructor(selector) {
-    this._selector = selector;
+  constructor(popup) {
+    this._popup = popup;
     this._handleEscapeKey = this._handleEscapeKey.bind(this);
+    this._handleCloseOverlayClick = this._handleCloseOverlayClick.bind(this);
   }
 
   open() {
-    this._selector.classList.add("modal_opened");
-    this._selector.addEventListener("click", handleCloseOverlayClick);
+    this._popup.classList.add("modal_opened");
+    this._popup.addEventListener("click", this._handleCloseOverlayClick);
     document.addEventListener("keydown", this._handleEscapeKey);
   }
 
   close() {
-    this._selector.classList.remove("modal_opened");
-    this._selector.removeEventListener("click", handleCloseOverlayClick);
+    this._popup.classList.remove("modal_opened");
+    this._popup.removeEventListener("click", this._handleCloseOverlayClick);
     document.removeEventListener("keydown", this._handleEscapeKey);
   }
 
@@ -27,9 +28,14 @@ export class Popup {
       this.close();
     }
   }
+  _handleCloseOverlayClick(e) {
+    if (e.target.classList.contains("modal_opened")) {
+      this.close();
+    }
+  }
 
   setEventListeners() {
-    const closeButton = this._selector.querySelector(".modal__close-button");
+    const closeButton = this._popup.querySelector(".modal__close-button");
     closeButton.addEventListener("click", () => {
       this.close();
     });
