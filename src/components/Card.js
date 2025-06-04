@@ -4,10 +4,12 @@ export class Card {
     this._id = data.id;
     this._name = data.name;
     this._link = data.link;
-    this._liked = data.liked;
+    this._isLiked = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._owner = data.owner;
+    this._createdAt = data._createdAt;
   }
 
   // Method to get the card template
@@ -58,7 +60,8 @@ export class Card {
 
     // Delete button
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteClick(this._element);
+      console.log("in the delete button event listener");
+      this._handleDeleteClick(this._element, this._id);
     });
 
     // Image click

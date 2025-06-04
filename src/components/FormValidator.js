@@ -1,5 +1,5 @@
 class FormValidator {
-  constructor(settings, formElement) {
+  constructor(settings, formElement, handleSubmit) {
     this._config = settings;
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
@@ -7,6 +7,9 @@ class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
     this._form = formElement;
+
+    // enableValidation is called immediately after instantiation
+    this.enableValidation();
   }
 
   toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
@@ -59,6 +62,7 @@ class FormValidator {
   }
 
   enableValidation() {
+    console.log("enableValidation called");
     this._form.addEventListener(`submit`, (e) => {
       e.preventDefault();
     });

@@ -37,6 +37,25 @@
   height: auto;
 }
 
+.modal-confirm__container {
+  background-color: white;
+  margin: auto;
+  width: 430px;
+  height: 181px;
+  padding: 0;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal__button-wrapper {
+  width: 358px;
+  height: 50.15px;
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center;
+  margin: 38px 36px 0px 36px;
+}
+
 .modal__caption {
   position: absolute;
   font-weight: 400;
@@ -78,6 +97,17 @@
   height: 23px;
   margin: 34px 64px 0 36px;
   padding-bottom: 54px;
+}
+
+.modal__heading-confirm {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  width: 330px;
+  height: 23px;
+  margin: 34px 64px 0 36px;
+  padding-bottom: 38px;
 }
 
 .modal__button {

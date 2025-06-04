@@ -12,6 +12,7 @@ export class Popup {
   }
 
   open() {
+    console.log(`opening the popup for ${this._popup.classList}`);
     this._popup.classList.add("modal_opened");
     this._popup.addEventListener("click", this._handleCloseOverlayClick);
     document.addEventListener("keydown", this._handleEscapeKey);
