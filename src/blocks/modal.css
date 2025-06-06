@@ -45,15 +45,10 @@
   padding: 0;
   border-radius: 10px;
   position: relative;
-}
-
-.modal__button-wrapper {
-  width: 358px;
-  height: 50.15px;
   display: flex;
+  flex-direction: column;
   justify-content: center; /* center horizontally */
   align-items: center;
-  margin: 38px 36px 0px 36px;
 }
 
 .modal__caption {
@@ -107,7 +102,6 @@
   width: 330px;
   height: 23px;
   margin: 34px 64px 0 36px;
-  padding-bottom: 38px;
 }
 
 .modal__button {
@@ -123,6 +117,10 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 21.78px;
+}
+
+.modal__button_confirm {
+  margin-top: 38px;
 }
 
 .modal__button_disabled {

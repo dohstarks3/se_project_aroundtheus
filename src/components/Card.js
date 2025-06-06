@@ -1,6 +1,12 @@
 // Card.js
 export class Card {
-  constructor(data, cardSelector, handleCardClick, handleDeleteClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardClick,
+    handleDeleteClick,
+    handleLikeButton
+  ) {
     this._id = data.id;
     this._name = data.name;
     this._link = data.link;
@@ -10,6 +16,7 @@ export class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._owner = data.owner;
     this._createdAt = data._createdAt;
+    this._handleLikeButton = handleLikeButton;
   }
 
   // Method to get the card template
@@ -35,8 +42,10 @@ export class Card {
     this._cardTitle.textContent = this._name;
 
     // Set the initial liked state
-    if (this._liked) {
+    if (this._isLiked) {
       this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
     }
 
     // Add event listeners
@@ -46,21 +55,24 @@ export class Card {
   }
 
   // Toggle the like button state
-  _handleLikeButton() {
-    this._likeButton.classList.toggle("card__like-button_active");
-    this._liked = !this._liked;
-  }
+  // _handleLikeButton() {
+  //   this._likeButton.classList.toggle("card__like-button_active");
+  //   this._liked = !this._liked;
+  // }
 
   // Add all event listeners
   _setEventListeners() {
     // Like button
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton();
+      this._isLiked = this._handleLikeButton(
+        this._id,
+        this._isLiked,
+        this._likeButton
+      );
     });
 
     // Delete button
     this._deleteButton.addEventListener("click", () => {
-      console.log("in the delete button event listener");
       this._handleDeleteClick(this._element, this._id);
     });
 
@@ -75,13 +87,15 @@ export function createCard(
   cardData,
   templateSelector,
   handleCardClick,
-  handleDeleteClick
+  handleDeleteClick,
+  handleLikeButton
 ) {
   const card = new Card(
     cardData,
     templateSelector,
     handleCardClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeButton
   );
   const cardElement = card.generateCard();
   return cardElement;

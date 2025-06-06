@@ -62,7 +62,6 @@ class FormValidator {
   }
 
   enableValidation() {
-    console.log("enableValidation called");
     this._form.addEventListener(`submit`, (e) => {
       e.preventDefault();
     });

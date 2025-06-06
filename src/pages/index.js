@@ -76,6 +76,21 @@ api.getUserInfo().then((res) => {
     userInfo.getUserInfo().about;
 });
 
+function handleLikeButton(id, isLiked, likeButton) {
+  api
+    .changeLike(id, isLiked)
+    .then((res) => {
+      if (res) {
+        console.log("Like status changed successfully:", res);
+        likeButton.classList.toggle("card__like-button_active");
+        return !isLiked;
+      }
+    })
+    .catch((err) => {
+      console.error("Error changing like status:", err);
+    });
+}
+
 // Fetch initial cards from the server and initialize Section after fetching
 api.getInitialCards().then((res) => {
   const initialCards = res.map((item) => {
@@ -95,7 +110,13 @@ api.getInitialCards().then((res) => {
       items: initialCards,
       renderer: (item) => {
         section.addItem(
-          createCard(item, "#card-template", handleCardClick, handleDeleteClick)
+          createCard(
+            item,
+            "#card-template",
+            handleCardClick,
+            handleDeleteClick,
+            handleLikeButton
+          )
         );
       },
     },
@@ -124,7 +145,6 @@ function handleConfirmAction(id, cardElement) {
 
 // Handle card delete button click
 function handleDeleteClick(cardElement, id) {
-  console.log("in the handleDeleteClick function");
   const deleteConfirmPopup = new ConfirmPopup(
     confirmDeleteModal,
     handleConfirmAction,
@@ -179,7 +199,8 @@ function handleAddCardFormSubmit(inputValues) {
       newCardData,
       "#card-template",
       handleCardClick,
-      handleDeleteClick
+      handleDeleteClick,
+      handleLikeButton
     );
     section.addItem(cardElement);
 
