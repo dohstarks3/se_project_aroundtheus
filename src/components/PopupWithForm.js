@@ -18,6 +18,11 @@ export class PopupWithForm extends Popup {
 
   setLoading(isLoading) {
     const submitButton = this._popup.querySelector(".modal__button");
+
+    // disable the submit button to prevent multiple submissions if loading
+    submitButton.disabled = isLoading;
+
+    // set the text content of the submit button based on loading state
     submitButton.textContent = isLoading ? "Saving..." : "Save";
   }
 

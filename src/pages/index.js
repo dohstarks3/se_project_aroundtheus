@@ -1,4 +1,6 @@
-// index.js
+// =======================
+// Imports
+// =======================
 import { createCard } from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
@@ -7,23 +9,19 @@ import { settings } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import ConfirmPopup from "../components/ConfirmPopup.js";
-
 import "./index.css";
-
 import siteLogo from "../images/SiteLogo.svg";
 import Api from "../components/API.js";
 
-// Set the image sources dynamically
-document.querySelector(".header__logo").src = siteLogo;
-
-// Select modal elements
+// =======================
+// Global Query Selectors
+// =======================
 const editProfileModal = document.querySelector("#profile-edit-modal");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 const addCardModal = document.querySelector("#edit-card-modal");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const imageModalPreview = document.querySelector("#image-preview");
 const profileImageForm = document.querySelector("#profile-image-form");
-
 const profileEditImage = document.querySelector(".profile__image");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
@@ -33,27 +31,25 @@ const profileDescriptionInput = document.querySelector(
 );
 const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
-
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
 
-// create a new PopupWithForm object for the profile image form
+// =======================
+// Objects Setup
+// =======================
+
+// Set the image sources dynamically
+document.querySelector(".header__logo").src = siteLogo;
+
 const profileImagePopup = new PopupWithForm(
   profileImageForm,
   handleProfileImageSubmit
 );
 
-// event listener for the profile image hover and click
-profileEditImage.addEventListener("mouseover", () => {
-  profileEditImage.classList.add("profile__image_hover");
-});
-
 let userInfo;
 
-// Create a PopupWithImage instance
 const imagePreviewPopup = new PopupWithImage(imageModalPreview);
 imagePreviewPopup.setEventListeners();
 
-// Create PopupWithForm instances
 const editProfilePopup = new PopupWithForm(
   editProfileModal,
   handleProfileEditSubmit
@@ -70,6 +66,137 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+const editFormValidator = new FormValidator(settings, editProfileForm);
+const addFormValidator = new FormValidator(settings, addCardForm);
+
+// =======================
+// Functions / Callback Functions
+// =======================
+
+function handleLikeButton(id, isLiked) {
+  return api.changeLike(id, isLiked);
+}
+
+// Handle card click
+function handleCardClick(name, link) {
+  imagePreviewPopup.open({ name, link });
+}
+
+function handleConfirmAction(id, cardElement) {
+  api.deleteCard(id).then((res) => {
+    if (res) {
+      cardElement.remove();
+    }
+  });
+}
+
+// Handle card delete button click
+function handleDeleteClick(cardElement, id) {
+  const deleteConfirmPopup = new ConfirmPopup(
+    confirmDeleteModal,
+    handleConfirmAction,
+    id,
+    cardElement
+  );
+  deleteConfirmPopup.setEventListeners();
+  deleteConfirmPopup.open();
+}
+
+// Handle profile edit form submission
+function handleProfileEditSubmit(profileValues) {
+  const userData = {
+    name: profileValues.profile__title,
+    about: profileValues.profile__description,
+  };
+
+  // set the loading state for the popup
+  editProfilePopup.setLoading(true);
+
+  api.patchUserInfo(userData).then((res) => {
+    userInfo = new UserInfo({
+      _id: res._id,
+      name: res.name,
+      avatar: res.avatar,
+      about: res.about,
+    });
+
+    document.querySelector(".profile__title").textContent =
+      userInfo.getUserInfo().name;
+    document.querySelector(".profile__description").textContent =
+      userInfo.getUserInfo().about;
+    // document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
+
+    // Reset the loading state for the popup
+    editProfilePopup.setLoading(false);
+  });
+
+  editProfilePopup.close();
+}
+
+// Handle add-new-card form submission
+function handleAddCardFormSubmit(inputValues) {
+  const cardData = {
+    name: inputValues.Title,
+    link: inputValues.url,
+  };
+
+  // set the loading state for the popup
+  addCardPopup.setLoading(true);
+
+  api.addCard(cardData).then((res) => {
+    const newCardData = {
+      id: res._id,
+      name: res.name,
+      link: res.link,
+      isLiked: res.isLiked,
+      createdAt: res.createdAt,
+      owner: res.owner,
+    };
+    const cardElement = createCard(
+      newCardData,
+      "#card-template",
+      handleCardClick,
+      handleDeleteClick,
+      handleLikeButton
+    );
+    section.addItem(cardElement);
+
+    addCardPopup.close();
+    addCardForm.reset();
+    addFormValidator.disableButton();
+
+    // Reset the loading state for the popup
+    addCardPopup.setLoading(false);
+  });
+}
+
+function handleProfileImageSubmit(inputValues) {
+  // Grab the link from the input field called "url-link-input"
+  const imageLink = inputValues.url;
+
+  profileImagePopup.setLoading(true);
+
+  api
+    .changeAvatar(imageLink)
+    .then((res) => {
+      // Update the profile image in the DOM
+      userInfo.setAvatar(res.avatar);
+      document.querySelector(".profile__image").src =
+        userInfo.getUserInfo().avatar;
+      profileImagePopup.setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error updating profile image:", err);
+    });
+
+  // Close the popup
+  profileImagePopup.close();
+}
+
+// =======================
+// API Calls & Data Initialization
+// =======================
 
 // Fetch the user info from the server
 api.getUserInfo().then((res) => {
@@ -88,10 +215,6 @@ api.getUserInfo().then((res) => {
   document.querySelector(".profile__description").textContent =
     userInfo.getUserInfo().about;
 });
-
-function handleLikeButton(id, isLiked) {
-  return api.changeLike(id, isLiked);
-}
 
 // Fetch initial cards from the server and initialize Section after fetching
 api.getInitialCards().then((res) => {
@@ -130,90 +253,15 @@ api.getInitialCards().then((res) => {
   window.section = section;
 });
 
-// display the cards that we got from the server on the page/dom
+// =======================
+// Event Listeners
+// =======================
 
-// Handle card click
-function handleCardClick(name, link) {
-  imagePreviewPopup.open({ name, link });
-}
+// event listener for the profile image hover and click
+profileEditImage.addEventListener("mouseover", () => {
+  profileEditImage.classList.add("profile__image_hover");
+});
 
-function handleConfirmAction(id, cardElement) {
-  api.deleteCard(id).then((res) => {
-    if (res) {
-      cardElement.remove();
-    }
-  });
-}
-
-// Handle card delete button click
-function handleDeleteClick(cardElement, id) {
-  const deleteConfirmPopup = new ConfirmPopup(
-    confirmDeleteModal,
-    handleConfirmAction,
-    id,
-    cardElement
-  );
-  deleteConfirmPopup.setEventListeners();
-  deleteConfirmPopup.open();
-}
-
-// Handle profile edit form submission
-function handleProfileEditSubmit(profileValues) {
-  const userData = {
-    name: profileValues.profile__title,
-    about: profileValues.profile__description,
-  };
-
-  api.patchUserInfo(userData).then((res) => {
-    userInfo = new UserInfo({
-      _id: res._id,
-      name: res.name,
-      avatar: res.avatar,
-      about: res.about,
-    });
-
-    document.querySelector(".profile__title").textContent =
-      userInfo.getUserInfo().name;
-    document.querySelector(".profile__description").textContent =
-      userInfo.getUserInfo().about;
-    // document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
-  });
-
-  editProfilePopup.close();
-}
-
-// Handle add-new-card form submission
-function handleAddCardFormSubmit(inputValues) {
-  const cardData = {
-    name: inputValues.Title,
-    link: inputValues.url,
-  };
-  api.addCard(cardData).then((res) => {
-    const newCardData = {
-      id: res._id,
-      name: res.name,
-      link: res.link,
-      isLiked: res.isLiked,
-      createdAt: res.createdAt,
-      owner: res.owner,
-    };
-    const cardElement = createCard(
-      newCardData,
-      "#card-template",
-      handleCardClick,
-      handleDeleteClick,
-      handleLikeButton
-    );
-    section.addItem(cardElement);
-
-    addCardPopup.close();
-    addCardForm.reset();
-    addFormValidator.disableButton();
-  });
-}
-// Section is now initialized after fetching cards from the server above
-
-// Modals open
 profileEditButton.addEventListener("click", () => {
   const userInfoData = userInfo.getUserInfo();
   profileTitleInput.value = userInfoData.name;
@@ -224,29 +272,3 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
-
-function handleProfileImageSubmit(inputValues) {
-  // Grab the link from the input field called "url-link-input"
-  const imageLink = inputValues.url;
-
-  profileImagePopup.setLoading(true);
-
-  api
-    .changeAvatar(imageLink)
-    .then((res) => {
-      // Update the profile image in the DOM
-      userInfo.setAvatar(res.avatar);
-      document.querySelector(".profile__image").src =
-        userInfo.getUserInfo().avatar;
-      profileImagePopup.setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error updating profile image:", err);
-    });
-
-  // Close the popup
-  profileImagePopup.close();
-}
-
-const editFormValidator = new FormValidator(settings, editProfileForm);
-const addFormValidator = new FormValidator(settings, addCardForm);
