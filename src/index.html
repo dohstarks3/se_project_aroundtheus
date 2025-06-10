@@ -133,6 +133,26 @@
       </div>
     </div>
 
+    <!--Profile Picture Modal-->
+    <div class="modal" id="profile-image-form">
+      <button class="modal__close-button"></button>
+      <p class="modal__heading-confirm">Change profile picture?</p>
+      <label for="url-link-input" class="modal__label">
+        <input
+          required
+          type="url"
+          name="url"
+          id="url-link-input"
+          class="modal__input modal__input_type_url"
+          placeholder="Image URL"
+        />
+        <span class="modal__error" id="url-link-input-error"
+          >Error Message</span
+        >
+      </label>
+      <button class="modal__button modal__button_confirm">Save</button>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button" type="button"></button>

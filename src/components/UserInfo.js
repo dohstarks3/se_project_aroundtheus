@@ -19,6 +19,10 @@ export class UserInfo {
     this._name.textContent = name;
     this._about.textContent = job;
   }
+
+  setUserAvatar(avatar) {
+    this._avatar = avatar;
+  }
 }
 
 export default UserInfo;

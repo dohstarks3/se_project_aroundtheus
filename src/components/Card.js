@@ -64,11 +64,16 @@ export class Card {
   _setEventListeners() {
     // Like button
     this._likeButton.addEventListener("click", () => {
-      this._isLiked = this._handleLikeButton(
-        this._id,
-        this._isLiked,
-        this._likeButton
-      );
+      this._handleLikeButton(this._id, this._isLiked)
+        .then((res) => {
+          if (res) {
+            this._likeButton.classList.toggle("card__like-button_active");
+            this._isLiked = res.isLiked; // Update the isLiked status
+          }
+        })
+        .catch((err) => {
+          console.error("Error changing like status:", err);
+        });
     });
 
     // Delete button

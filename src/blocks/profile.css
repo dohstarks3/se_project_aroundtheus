@@ -78,6 +78,9 @@
   margin-right: 24px;
 }
 
+.profile__image_hover {
+}
+
 @media screen and (max-width: 722px) {
   .profile {
     flex-direction: column;

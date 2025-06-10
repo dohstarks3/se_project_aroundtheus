@@ -1,6 +1,6 @@
 // index.js
-import { Card, createCard } from "../components/Card.js";
-import { Section } from "../components/Section.js";
+import { createCard } from "../components/Card.js";
+import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { settings } from "../utils/constants.js";
@@ -22,7 +22,9 @@ const editProfileForm = editProfileModal.querySelector(".modal__form");
 const addCardModal = document.querySelector("#edit-card-modal");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const imageModalPreview = document.querySelector("#image-preview");
+const profileImageForm = document.querySelector("#profile-image-form");
 
+const profileEditImage = document.querySelector(".profile__image");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -33,6 +35,17 @@ const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
 
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
+
+// create a new PopupWithForm object for the profile image form
+const profileImagePopup = new PopupWithForm(
+  profileImageForm,
+  handleProfileImageSubmit
+);
+
+// event listener for the profile image hover and click
+profileEditImage.addEventListener("mouseover", () => {
+  profileEditImage.classList.add("profile__image_hover");
+});
 
 let userInfo;
 
@@ -76,19 +89,8 @@ api.getUserInfo().then((res) => {
     userInfo.getUserInfo().about;
 });
 
-function handleLikeButton(id, isLiked, likeButton) {
-  api
-    .changeLike(id, isLiked)
-    .then((res) => {
-      if (res) {
-        console.log("Like status changed successfully:", res);
-        likeButton.classList.toggle("card__like-button_active");
-        return !isLiked;
-      }
-    })
-    .catch((err) => {
-      console.error("Error changing like status:", err);
-    });
+function handleLikeButton(id, isLiked) {
+  return api.changeLike(id, isLiked);
 }
 
 // Fetch initial cards from the server and initialize Section after fetching
@@ -222,6 +224,29 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
+
+function handleProfileImageSubmit(inputValues) {
+  // Grab the link from the input field called "url-link-input"
+  const imageLink = inputValues.url;
+
+  profileImagePopup.setLoading(true);
+
+  api
+    .changeAvatar(imageLink)
+    .then((res) => {
+      // Update the profile image in the DOM
+      userInfo.setAvatar(res.avatar);
+      document.querySelector(".profile__image").src =
+        userInfo.getUserInfo().avatar;
+      profileImagePopup.setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error updating profile image:", err);
+    });
+
+  // Close the popup
+  profileImagePopup.close();
+}
 
 const editFormValidator = new FormValidator(settings, editProfileForm);
 const addFormValidator = new FormValidator(settings, addCardForm);
