@@ -24,11 +24,13 @@ const imageModalPreview = document.querySelector("#image-preview");
 const profileImageForm = document.querySelector("#profile-image-form");
 const profileEditImage = document.querySelector(".profile__image");
 const profileEditButton = document.querySelector(".profile__edit-button");
+
 const addCardButton = document.querySelector(".profile__add-button");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+const profileImage = document.querySelector(".profile__image");
 const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
@@ -44,6 +46,8 @@ const profileImagePopup = new PopupWithForm(
   profileImageForm,
   handleProfileImageSubmit
 );
+
+profileImagePopup.setEventListeners();
 
 let userInfo;
 
@@ -174,6 +178,7 @@ function handleAddCardFormSubmit(inputValues) {
 function handleProfileImageSubmit(inputValues) {
   // Grab the link from the input field called "url-link-input"
   const imageLink = inputValues.url;
+  console.log(imageLink);
 
   profileImagePopup.setLoading(true);
 
@@ -181,7 +186,7 @@ function handleProfileImageSubmit(inputValues) {
     .changeAvatar(imageLink)
     .then((res) => {
       // Update the profile image in the DOM
-      userInfo.setAvatar(res.avatar);
+      userInfo.setUserAvatar(res.avatar);
       document.querySelector(".profile__image").src =
         userInfo.getUserInfo().avatar;
       profileImagePopup.setLoading(false);
@@ -271,4 +276,8 @@ profileEditButton.addEventListener("click", () => {
 
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
+});
+
+profileImage.addEventListener("click", () => {
+  profileImagePopup.open();
 });

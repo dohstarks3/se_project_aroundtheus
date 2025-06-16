@@ -12,7 +12,10 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img alt="Profile Avatar" class="profile__image" />
+          <div className="profile__avatar">
+            <img alt="Profile Avatar" class="profile__image" />
+            <div class="profile__image-overlay"></div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
             <button class="profile__edit-button" type="button"></button>
@@ -135,22 +138,28 @@
 
     <!--Profile Picture Modal-->
     <div class="modal" id="profile-image-form">
-      <button class="modal__close-button"></button>
-      <p class="modal__heading-confirm">Change profile picture?</p>
-      <label for="url-link-input" class="modal__label">
-        <input
-          required
-          type="url"
-          name="url"
-          id="url-link-input"
-          class="modal__input modal__input_type_url"
-          placeholder="Image URL"
-        />
-        <span class="modal__error" id="url-link-input-error"
-          >Error Message</span
-        >
-      </label>
-      <button class="modal__button modal__button_confirm">Save</button>
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <p class="modal__heading modal__heading-confirm">
+          Change profile picture?
+        </p>
+        <form class="modal__form" id="profile-avatar-form" novalidate>
+          <label for="url-link-input" class="modal__label">
+            <input
+              required
+              type="url"
+              name="url"
+              id="url-link-input"
+              class="modal__input modal__input_type_url"
+              placeholder="Image URL"
+            />
+            <span class="modal__error" id="url-link-input-error"
+              >Error Message</span
+            >
+          </label>
+          <button class="modal__button modal__button_confirm">Save</button>
+        </form>
+      </div>
     </div>
 
     <template id="card-template">
