@@ -24,6 +24,9 @@ const imageModalPreview = document.querySelector("#image-preview");
 const profileImageForm = document.querySelector("#profile-image-form");
 const profileEditImage = document.querySelector(".profile__image");
 const profileEditButton = document.querySelector(".profile__edit-button");
+const profileEditImageButton = document.querySelector(
+  ".profile__avatar-button"
+);
 
 const addCardButton = document.querySelector(".profile__add-button");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -31,6 +34,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const profileImage = document.querySelector(".profile__image");
+const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
@@ -73,6 +77,7 @@ const api = new Api({
 
 const editFormValidator = new FormValidator(settings, editProfileForm);
 const addFormValidator = new FormValidator(settings, addCardForm);
+const avatarFormValidator = new FormValidator(settings, profileImageForm);
 
 // =======================
 // Functions / Callback Functions
@@ -267,6 +272,10 @@ profileEditImage.addEventListener("mouseover", () => {
   profileEditImage.classList.add("profile__image_hover");
 });
 
+profileEditImageButton.addEventListener("mouseover", () => {
+  profileEditImageButton.classList.add("profile__image_hover");
+});
+
 profileEditButton.addEventListener("click", () => {
   const userInfoData = userInfo.getUserInfo();
   profileTitleInput.value = userInfoData.name;
@@ -278,6 +287,6 @@ addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-profileImage.addEventListener("click", () => {
+profileAvatarButton.addEventListener("click", () => {
   profileImagePopup.open();
 });
