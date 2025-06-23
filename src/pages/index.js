@@ -53,8 +53,6 @@ const profileImagePopup = new PopupWithForm(
 
 profileImagePopup.setEventListeners();
 
-let userInfo;
-
 const imagePreviewPopup = new PopupWithImage(imageModalPreview);
 imagePreviewPopup.setEventListeners();
 
@@ -67,12 +65,80 @@ editProfilePopup.setEventListeners();
 const addCardPopup = new PopupWithForm(addCardModal, handleAddCardFormSubmit);
 addCardPopup.setEventListeners();
 
+const deleteConfirmPopup = new ConfirmPopup(
+  confirmDeleteModal,
+  handleConfirmAction
+);
+deleteConfirmPopup.setEventListeners();
+
+// Make a user object to store user information from the API call
+let user;
+
+// =======================
+// API Calls & Data Initialization
+// =======================
+
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "6fccc61c-6377-4705-9a17-e90101d72c87",
     "Content-Type": "application/json",
   },
+});
+
+// Fetch the user info from the server
+api.getUserInfo().then((res) => {
+  const userData = {
+    _id: res._id,
+    name: res.name,
+    avatar: res.avatar,
+    about: res.about,
+  };
+
+  // Set user info in the UserInfo instance
+  user = new UserInfo(userData);
+  document.querySelector(".profile__image").src = user.getUserInfo().avatar;
+  document.querySelector(".profile__title").textContent =
+    user.getUserInfo().name;
+  document.querySelector(".profile__description").textContent =
+    user.getUserInfo().about;
+});
+
+// Fetch initial cards from the server and initialize Section after fetching
+api.getInitialCards().then((res) => {
+  const initialCards = res.map((item) => {
+    return {
+      id: item._id,
+      owner: item.owner,
+      name: item.name,
+      link: item.link,
+      isLiked: item.isLiked,
+      createdAt: item.createdAt,
+    };
+  });
+
+  // Initialize Section and render initial cards after fetching
+  const section = new Section(
+    {
+      items: initialCards,
+      renderer: (item) => {
+        section.addItem(
+          createCard(
+            item,
+            "#card-template",
+            handleCardClick,
+            handleDeleteClick,
+            handleLikeButton
+          )
+        );
+      },
+    },
+    ".cards__list"
+  );
+  section.renderItems();
+
+  // Store section instance for later use (e.g., adding new cards)
+  window.section = section;
 });
 
 const editFormValidator = new FormValidator(settings, editProfileForm);
@@ -92,24 +158,13 @@ function handleCardClick(name, link) {
   imagePreviewPopup.open({ name, link });
 }
 
-function handleConfirmAction(id, cardElement) {
-  api.deleteCard(id).then((res) => {
-    if (res) {
-      cardElement.remove();
-    }
-  });
+function handleConfirmAction(cardElement, id) {
+  return api.deleteCard(id);
 }
 
 // Handle card delete button click
 function handleDeleteClick(cardElement, id) {
-  const deleteConfirmPopup = new ConfirmPopup(
-    confirmDeleteModal,
-    handleConfirmAction,
-    id,
-    cardElement
-  );
-  deleteConfirmPopup.setEventListeners();
-  deleteConfirmPopup.open();
+  deleteConfirmPopup.open(cardElement, id);
 }
 
 // Handle profile edit form submission
@@ -122,25 +177,31 @@ function handleProfileEditSubmit(profileValues) {
   // set the loading state for the popup
   editProfilePopup.setLoading(true);
 
-  api.patchUserInfo(userData).then((res) => {
-    userInfo = new UserInfo({
-      _id: res._id,
-      name: res.name,
-      avatar: res.avatar,
-      about: res.about,
+  api
+    .patchUserInfo(userData)
+    .then((res) => {
+      user.setUserInfo({
+        id: res._id,
+        name: res.name,
+        about: res.about,
+        avatar: res.avatar,
+      });
+
+      document.querySelector(".profile__title").textContent =
+        user.getUserInfo().name;
+      document.querySelector(".profile__description").textContent =
+        user.getUserInfo().about;
+      // document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
+
+      // Reset the loading state for the popup
+      editProfilePopup.setLoading(false);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.error("Error updating profile:", err);
+      // Reset the loading state for the popup in case of error
+      editProfilePopup.setLoading(false);
     });
-
-    document.querySelector(".profile__title").textContent =
-      userInfo.getUserInfo().name;
-    document.querySelector(".profile__description").textContent =
-      userInfo.getUserInfo().about;
-    // document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
-
-    // Reset the loading state for the popup
-    editProfilePopup.setLoading(false);
-  });
-
-  editProfilePopup.close();
 }
 
 // Handle add-new-card form submission
@@ -191,77 +252,15 @@ function handleProfileImageSubmit(inputValues) {
     .changeAvatar(imageLink)
     .then((res) => {
       // Update the profile image in the DOM
-      userInfo.setUserAvatar(res.avatar);
-      document.querySelector(".profile__image").src =
-        userInfo.getUserInfo().avatar;
+      user.setUserAvatar(res.avatar);
+      document.querySelector(".profile__image").src = user.getUserInfo().avatar;
       profileImagePopup.setLoading(false);
+      profileImagePopup.close();
     })
     .catch((err) => {
       console.error("Error updating profile image:", err);
     });
-
-  // Close the popup
-  profileImagePopup.close();
 }
-
-// =======================
-// API Calls & Data Initialization
-// =======================
-
-// Fetch the user info from the server
-api.getUserInfo().then((res) => {
-  const userData = {
-    _id: res._id,
-    name: res.name,
-    avatar: res.avatar,
-    about: res.about,
-  };
-
-  // Set user info in the UserInfo instance
-  userInfo = new UserInfo(userData);
-  document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
-  document.querySelector(".profile__title").textContent =
-    userInfo.getUserInfo().name;
-  document.querySelector(".profile__description").textContent =
-    userInfo.getUserInfo().about;
-});
-
-// Fetch initial cards from the server and initialize Section after fetching
-api.getInitialCards().then((res) => {
-  const initialCards = res.map((item) => {
-    return {
-      id: item._id,
-      owner: item.owner,
-      name: item.name,
-      link: item.link,
-      isLiked: item.isLiked,
-      createdAt: item.createdAt,
-    };
-  });
-
-  // Initialize Section and render initial cards after fetching
-  const section = new Section(
-    {
-      items: initialCards,
-      renderer: (item) => {
-        section.addItem(
-          createCard(
-            item,
-            "#card-template",
-            handleCardClick,
-            handleDeleteClick,
-            handleLikeButton
-          )
-        );
-      },
-    },
-    ".cards__list"
-  );
-  section.renderItems();
-
-  // Store section instance for later use (e.g., adding new cards)
-  window.section = section;
-});
 
 // =======================
 // Event Listeners
@@ -277,7 +276,7 @@ profileEditImageButton.addEventListener("mouseover", () => {
 });
 
 profileEditButton.addEventListener("click", () => {
-  const userInfoData = userInfo.getUserInfo();
+  const userInfoData = user.getUserInfo();
   profileTitleInput.value = userInfoData.name;
   profileDescriptionInput.value = userInfoData.about;
   editProfilePopup.open();

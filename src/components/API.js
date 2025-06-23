@@ -5,15 +5,19 @@ class Api {
     this._baseUrl = options.baseUrl;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    // if the server returns an error, reject the promise
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      // if the server returns an error, reject the promise
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -21,11 +25,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      // if the server returns an error, reject the promise
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -38,11 +38,7 @@ class Api {
         about: userData.about,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      // if the server returns an error, reject the promise
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -59,10 +55,7 @@ class Api {
         createdAt: cardData.createdAt,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -71,10 +64,7 @@ class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -84,10 +74,7 @@ class Api {
       method: reqestMethod,
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 
@@ -99,10 +86,7 @@ class Api {
         avatar: link,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._checkResponse(res);
     });
   }
 }
