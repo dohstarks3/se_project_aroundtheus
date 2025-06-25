@@ -28,12 +28,12 @@ const profileEditImageButton = document.querySelector(
   ".profile__avatar-button"
 );
 
+const userSelector = document.querySelector(".profile");
 const addCardButton = document.querySelector(".profile__add-button");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const profileImage = document.querySelector(".profile__image");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
@@ -71,8 +71,12 @@ const deleteConfirmPopup = new ConfirmPopup(
 );
 deleteConfirmPopup.setEventListeners();
 
+const profileImage = document.querySelector(".profile__image");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+
 // Make a user object to store user information from the API call
-let user;
+const user = new UserInfo(profileTitle, profileDescription, profileImage);
 
 // =======================
 // API Calls & Data Initialization
@@ -95,13 +99,8 @@ api.getUserInfo().then((res) => {
     about: res.about,
   };
 
-  // Set user info in the UserInfo instance
-  user = new UserInfo(userData);
-  document.querySelector(".profile__image").src = user.getUserInfo().avatar;
-  document.querySelector(".profile__title").textContent =
-    user.getUserInfo().name;
-  document.querySelector(".profile__description").textContent =
-    user.getUserInfo().about;
+  // Set user info in the UserInfo instance according to the userData
+  user.setUserInfo(userData);
 });
 
 // Fetch initial cards from the server and initialize Section after fetching
@@ -187,19 +186,13 @@ function handleProfileEditSubmit(profileValues) {
         avatar: res.avatar,
       });
 
-      document.querySelector(".profile__title").textContent =
-        user.getUserInfo().name;
-      document.querySelector(".profile__description").textContent =
-        user.getUserInfo().about;
-      // document.querySelector(".profile__image").src = userInfo.getUserInfo().avatar;
-
       // Reset the loading state for the popup
-      editProfilePopup.setLoading(false);
       editProfilePopup.close();
     })
     .catch((err) => {
       console.error("Error updating profile:", err);
-      // Reset the loading state for the popup in case of error
+    })
+    .finally(() => {
       editProfilePopup.setLoading(false);
     });
 }
@@ -214,51 +207,55 @@ function handleAddCardFormSubmit(inputValues) {
   // set the loading state for the popup
   addCardPopup.setLoading(true);
 
-  api.addCard(cardData).then((res) => {
-    const newCardData = {
-      id: res._id,
-      name: res.name,
-      link: res.link,
-      isLiked: res.isLiked,
-      createdAt: res.createdAt,
-      owner: res.owner,
-    };
-    const cardElement = createCard(
-      newCardData,
-      "#card-template",
-      handleCardClick,
-      handleDeleteClick,
-      handleLikeButton
-    );
-    section.addItem(cardElement);
+  api
+    .addCard(cardData)
+    .then((res) => {
+      const newCardData = {
+        id: res._id,
+        name: res.name,
+        link: res.link,
+        isLiked: res.isLiked,
+        createdAt: res.createdAt,
+        owner: res.owner,
+      };
+      const cardElement = createCard(
+        newCardData,
+        "#card-template",
+        handleCardClick,
+        handleDeleteClick,
+        handleLikeButton
+      );
+      section.addItem(cardElement);
 
-    addCardPopup.close();
-    addCardForm.reset();
-    addFormValidator.disableButton();
-
-    // Reset the loading state for the popup
-    addCardPopup.setLoading(false);
-  });
+      addCardPopup.close();
+      addCardForm.reset();
+      addFormValidator.disableButton();
+    })
+    .catch((err) => {
+      console.error("error adding card:", err);
+    })
+    .finally(() => {
+      addCardPopup.setLoading(false);
+    });
 }
 
 function handleProfileImageSubmit(inputValues) {
   // Grab the link from the input field called "url-link-input"
   const imageLink = inputValues.url;
-  console.log(imageLink);
 
   profileImagePopup.setLoading(true);
 
   api
     .changeAvatar(imageLink)
     .then((res) => {
-      // Update the profile image in the DOM
       user.setUserAvatar(res.avatar);
-      document.querySelector(".profile__image").src = user.getUserInfo().avatar;
-      profileImagePopup.setLoading(false);
       profileImagePopup.close();
     })
     .catch((err) => {
       console.error("Error updating profile image:", err);
+    })
+    .finally(() => {
+      profileImagePopup.setLoading(false);
     });
 }
 

@@ -101,6 +101,7 @@
   width: 330px;
   height: 23px;
   margin: 34px 64px 38px 36px;
+  padding-bottom: 0;
 }
 
 .modal__button {
