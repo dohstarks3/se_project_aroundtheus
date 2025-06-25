@@ -12,11 +12,14 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img alt="Profile Avatar" class="profile__image" />
+          <div class="profile__avatar">
+            <img alt="Profile Avatar" class="profile__image" />
+            <button class="profile__avatar-button" type="button"></button>
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button class="profile__edit-button" type="button"></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
@@ -120,6 +123,42 @@
         ></button>
         <img src="" alt="" class="modal__image" />
         <h6 class="modal__caption"></h6>
+      </div>
+    </div>
+
+    <!--Confirmation Modal-->
+
+    <div class="modal" id="confirm-delete-modal">
+      <div class="modal-confirm__container">
+        <button class="modal__close-button" id="add-card-close-button"></button>
+        <p class="modal__heading-confirm">Are you sure?</p>
+        <button class="modal__button modal__button_confirm">Yes</button>
+      </div>
+    </div>
+
+    <!--Profile Picture Modal-->
+    <div class="modal" id="profile-image-form">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <p class="modal__heading modal__heading-confirm">
+          Change profile picture?
+        </p>
+        <form class="modal__form" id="profile-avatar-form" novalidate>
+          <label for="url-link-input" class="modal__label">
+            <input
+              required
+              type="url"
+              name="url"
+              id="url-link-input"
+              class="modal__input modal__input_type_url"
+              placeholder="Image URL"
+            />
+            <span class="modal__error" id="url-link-input-error"
+              >Error Message</span
+            >
+          </label>
+          <button class="modal__button modal__button_confirm">Save</button>
+        </form>
       </div>
     </div>
 

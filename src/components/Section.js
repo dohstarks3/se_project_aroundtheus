@@ -18,3 +18,5 @@ export class Section {
     this._container.prepend(cardElement);
   }
 }
+
+export default Section;

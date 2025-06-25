@@ -69,6 +69,32 @@
   overflow: hidden;
 }
 
+.profile__avatar {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-position: center;
+  margin-right: 24px;
+  position: relative;
+}
+
+.profile__avatar-button {
+  background: rgba(0, 0, 0, 0.8) url(../images/editicon.svg) center no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+}
+
+.profile__avatar-button:hover {
+  opacity: 1;
+}
+
 .profile__image {
   height: 120px;
   width: 120px;

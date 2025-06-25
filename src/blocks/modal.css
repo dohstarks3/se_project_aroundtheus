@@ -23,7 +23,6 @@
   background-color: white;
   margin: auto;
   width: 430px;
-  height: 330px;
   padding: 0;
   border-radius: 10px;
   position: relative;
@@ -35,6 +34,20 @@
   max-height: 75vh;
   width: auto;
   height: auto;
+}
+
+.modal-confirm__container {
+  background-color: white;
+  margin: auto;
+  width: 430px;
+  height: 181px;
+  padding: 0;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center horizontally */
+  align-items: center;
 }
 
 .modal__caption {
@@ -80,6 +93,17 @@
   padding-bottom: 54px;
 }
 
+.modal__heading-confirm {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  width: 330px;
+  height: 23px;
+  margin: 34px 64px 38px 36px;
+  padding-bottom: 0;
+}
+
 .modal__button {
   width: 358px;
   height: 50.15px;
@@ -93,6 +117,10 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 21.78px;
+}
+
+.modal__button_confirm {
+  margin-top: 0;
 }
 
 .modal__button_disabled {
@@ -112,6 +140,19 @@
 }
 
 .modal__input {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  width: 358px;
+  height: 27.26px;
+  border: 0;
+  top: 306px;
+  left: 461px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 1);
+}
+
+.modal__input-avatar {
   font-family: Inter, Arial, Helvetica, sans-serif;
   width: 358px;
   height: 27.26px;
@@ -147,6 +188,8 @@
 
 .modal__label {
   position: relative;
+  display: flex;
+  vertical-align: middle;
 }
 
 .modal__error {
