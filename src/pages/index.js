@@ -39,6 +39,10 @@ const titleInput = document.querySelector("#add-title-input");
 const linkInput = document.querySelector("#url-link-input");
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
 
+const profileImage = document.querySelector(".profile__image");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+
 // =======================
 // Objects Setup
 // =======================
@@ -70,10 +74,6 @@ const deleteConfirmPopup = new ConfirmPopup(
   handleConfirmAction
 );
 deleteConfirmPopup.setEventListeners();
-
-const profileImage = document.querySelector(".profile__image");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
 
 // Make a user object to store user information from the API call
 const user = new UserInfo(profileTitle, profileDescription, profileImage);
